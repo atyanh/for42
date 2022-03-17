@@ -9,10 +9,12 @@ char	*ft_strdup(const char *s)
 	len = ft_strlen(s);
 	i = 0;
 	ptr = malloc(len * sizeof(char));
-	while(len--)
+	while (len--)
 	{
 		ptr[i] = s[i];
 		i++;
 	}
+	if (!ptr)
+		return (NULL);
 	return (ptr);
 }
