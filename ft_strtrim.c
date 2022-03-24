@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hatyan <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/18 01:02:25 by hatyan            #+#    #+#             */
+/*   Updated: 2022/03/20 20:32:01 by hatyan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int	ft_checkSym(char c, char const *set)
+int	ft_checksym(char c, char const *set)
 {
 	while (*set)
 	{
@@ -21,19 +33,21 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	i;
 
 	if (*s1 == '\0')
-		return (NULL);
+		return (ft_strdup(""));
 	start = 0;
 	end = ft_strlen(s1) - 1;
-	while (ft_checkSym(s1[start], set))
+	while (ft_checksym(s1[start], set))
 		start++;
-	while (ft_checkSym(s1[end], set))
+	while (ft_checksym(s1[end], set) && end >= start)
 		end--;
-	res = (char *)malloc((end - start + 1) * sizeof(char));
-	if(!res || !s1)
+	if (start > end)
+		return (ft_strdup(""));
+	res = (char *)malloc((end - start + 2) * sizeof(char));
+	if (!res)
 		return (NULL);
 	i = 0;
 	while (start <= end)
 		res[i++] = s1[start++];
 	res[i] = '\0';
 	return (res);
-}	
+}

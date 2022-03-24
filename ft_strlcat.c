@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hatyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/20 23:09:04 by hatyan            #+#    #+#             */
-/*   Updated: 2022/03/23 23:00:32 by hatyan           ###   ########.fr       */
+/*   Created: 2022/03/20 23:03:14 by hatyan            #+#    #+#             */
+/*   Updated: 2022/03/23 22:16:53 by hatyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	char	*ptr;
-	int		i;
+	size_t	i;
+	int		j;
+	size_t	res;
+	int		nul;
 
+	res = ft_strlen(src) + ft_strlen(dst);
+	if (dstsize == 0)
+		return (ft_strlen(src));
 	i = 0;
-	if (start > ft_strlen(s) - 1)
-		return (ft_strdup(""));
-	if (start + len > ft_strlen(s))
-		len = ft_strlen(s) - start;
-	ptr = (char *)malloc ((len + 1) * sizeof(char));
-	if (!ptr)
-		return (NULL);
-	while (i < len && s[start])
-	{
-		ptr[i] = s[start];
+	j = 0;
+	while (dst[i] != '\0' && i < dstsize - 1)
 		i++;
-		start++;
+	while (src[j] != '\0' && i < dstsize - 1)
+	{
+		dst[i++] = src[j++];
+		nul = 1;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	if (nul == 1)
+		dst[i] = '\0';
+	if (dstsize < ft_strlen (dst))
+		res = ft_strlen(src) + dstsize;
+	return (res);
 }
